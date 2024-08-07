@@ -1,8 +1,9 @@
 import Foundation
+import SwiftUI
 
 class BookViewModel: ObservableObject {
     @Published var books: [Book] = []
-    @Published var isDevMode: Bool = true
+    @AppStorage("isDevMode") var isDevMode: Bool = true
 
     init() {
         loadBooks()
@@ -16,15 +17,9 @@ class BookViewModel: ObservableObject {
                 Book(title: "Moby-Dick", author: "Herman Melville", filePath: Bundle.main.path(forResource: "moby_dick", ofType: "epub") ?? "")
             ]
         } else {
-            // Load fewer or different books in non-dev mode if needed
             books = [
                 Book(title: "Pride and Prejudice", author: "Jane Austen", filePath: Bundle.main.path(forResource: "pride_and_prejudice", ofType: "epub") ?? "")
             ]
         }
-    }
-
-    func toggleDevMode() {
-        isDevMode.toggle()
-        loadBooks()
     }
 }

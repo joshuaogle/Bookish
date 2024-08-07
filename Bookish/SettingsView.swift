@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @AppStorage("fontSize") var fontSize: Double = 14.0
+    @AppStorage("isDevMode") var isDevMode: Bool = true
 
     var body: some View {
         Form {
@@ -11,6 +12,11 @@ struct SettingsView: View {
                 }
                 Text("Preview text with size \(fontSize, specifier: "%.0f")")
                     .font(.system(size: CGFloat(fontSize)))
+            }
+            Section(header: Text("Developer Mode")) {
+                Toggle(isOn: $isDevMode) {
+                    Text("Enable Developer Mode")
+                }
             }
         }
         .navigationTitle("Settings")
